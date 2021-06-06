@@ -23,6 +23,25 @@ void PortF_Init(void)
 		GPIO_PORTF_DATA_R = data;
 	}
   
+  double distance(double x1,double y1,double x2,double y2){
+	
+	double r;
+	double a;
+	double c;
+	double radius=6371;
+
+  x1=x1*PI/180;
+  y1=y1*PI/180;
+  x2=x2*PI/180;
+  y2=y2*PI/180;
+
+	
+	a= pow(sin((y2-y1)/2),2) +  pow(sin((x2-x1)/2),2)*cos(y1)*cos(y2);
+	c=asin(sqrt(a));	
+	r=2*radius*c*1000;
+	
+	return r;	
+	}
   
 int main()
 {
