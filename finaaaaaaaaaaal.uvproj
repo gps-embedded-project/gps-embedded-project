@@ -73,7 +73,7 @@ void PortF_Init(void)
   
 int main()
 {
-int c;
+int c=0;
 int s;
 
 	PortF_Init();
