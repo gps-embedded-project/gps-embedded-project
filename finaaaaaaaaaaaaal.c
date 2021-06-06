@@ -160,11 +160,11 @@ switch(r)
 	
 	
 int main(){
-	int c=699;
+	int c=0;
 	int s;
 
 	PortF_Init();
-	//c=c+distance(31.244223,30.045307,31.802575,30.051153); // this will give 745
+	c=c+distance(31.244223,30.045307,31.802575,30.051153); // this will give 745
 	s=c;
 	if(c>=100){
 	GPIO_PORTF_DATA_R = 0x02;
@@ -175,7 +175,7 @@ int main(){
 	
 	
 	
-	PortB_D_Init();
+	PortA_B_Init();
 	
 	
 	
