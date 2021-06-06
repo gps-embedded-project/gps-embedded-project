@@ -6,7 +6,24 @@
 #include "time.h"
 #define PI 3.141592653589793238462643383279502884L
 
-
+void SystemInit()
+{
+	
+}
+void PortF_Init(void)
+{
+	SYSCTL_RCGCGPIO_R|=0x00000020;
+	while((SYSCTL_PRGPIO_R&0x00000020)==0){};
+		GPIO_PORTF_CR_R = 0x1F;
+		GPIO_PORTF_DIR_R = 0x0E;
+		GPIO_PORTF_PUR_R = 0x11;
+		GPIO_PORTF_DEN_R = 0x1F;
+	}
+	void PortF_Output(uint32_t data){
+		GPIO_PORTF_DATA_R = data;
+	}
+  
+  
 int main()
 {
 
