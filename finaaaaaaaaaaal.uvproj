@@ -70,6 +70,35 @@ void PortF_Init(void)
 			for(j=0;j<x;j++){}
 			}
 	}
+	
+		int digit(int* d)
+{
+int r=*d%10;
+*d=*d/10;
+switch(r)
+{ case 0:
+   return 252; //0xFC
+  case 1:
+   return 96; //0x60
+  case 2:
+   return 218; //0xDA
+  case 3:
+   return 242;  //0xF2
+  case 4:
+   return 102; //0x66
+  case 5:
+   return 182;  //0xB6
+  case 6:
+   return 190;  //0xBE
+  case 7:
+   return 224;  //0xE0
+  case 8:
+   return 254;  //0xFE
+  case 9:
+   return 230;  //0xE6
+}
+}
+	
   
 int main()
 {
