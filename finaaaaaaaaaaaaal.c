@@ -5,7 +5,7 @@
 #include "math.h"
 #include "time.h"
 #define PI 3.141592653589793238462643383279502884L
-//#include "UART.h"
+
 
 
 
@@ -59,7 +59,7 @@ double distance(double x1,double y1,double x2,double y2){
 	
 	
 	
-	void PortB_D_Init(void)
+	void PortA_B_Init(void)
 {
 	SYSCTL_RCGCGPIO_R|=0x00000003;
 	while((SYSCTL_PRGPIO_R&0x00000003)==0){};
