@@ -63,6 +63,14 @@ void PortF_Init(void)
 		
 	}
   
+  	void delay(int x){
+	int i;
+	int j;
+		for(i=0;i<x;i++){
+			for(j=0;j<x;j++){}
+			}
+	}
+  
 int main()
 {
 
