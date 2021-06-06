@@ -114,5 +114,37 @@ int s;
 	
 	PortA_B_Init();
 	
+		while(1){     //we will replace 1 be push button condition
+	GPIO_PORTA_DATA_R &=0xDF;
+		GPIO_PORTA_DATA_R |=0xC0 ;
+
+
+	
+			GPIO_PORTB_DATA_R=digit(&c);
+		
+delay(200);
+				
+
+	
+	
+		
+  	GPIO_PORTA_DATA_R &=0xBF;
+	  GPIO_PORTA_DATA_R |=0xA0 ;
+	   GPIO_PORTB_DATA_R=digit(&c);		
+	
+delay(200);
+		
+		GPIO_PORTA_DATA_R &=0x7F;
+		GPIO_PORTA_DATA_R |=0x60;
+	   GPIO_PORTB_DATA_R=digit(&c);		
+		
+delay(200);
+
+c=s;
+
+
+
+}
+	
 return 0;
 }
