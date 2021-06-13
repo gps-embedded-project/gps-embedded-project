@@ -43,6 +43,28 @@ void PortF_Init(void)
 	return r;	
 	}
   
+  //Assume a 16 MHz bus clock , creates 9600 baud rate
+void UART_Init(void) {
+  SYSCTL_RCGCUART_R |= 0x0020; // activate UART5
+  SYSCTL_RCGCGPIO_R |= 0x0010; // activate Port E
+  UART5_CTL_R &= ~0x0001; // disable UART
+  UART5_IBRD_R = 104;
+// IBRD = int(16000000/(16*9600)) = int(104.0.1666) = 104
+  UART5_FBRD_R = 11;
+// FBRD = round(0.1666 * 64 + 0.5) = 11.1624 = 11
+  UART5_LCRH_R = 0x0070; // 8-bit word length, enable FIFO 001110000 
+  UART5_CTL_R = 0x0301; // enable RXE, TXE and UART 001100000001
+  GPIO_PORTE_AFSEL_R |= 0x30; // enable alt function on PE4 ,PE5
+  GPIO_PORTE_PCTL_R = (GPIO_PORTE_PCTL_R&0xFF00FFFF)+0x00110000;
+  GPIO_PORTE_DEN_R |= 0x30; // enable digital I/O on PE4, PE5 
+  GPIO_PORTE_AMSEL_R &= ~0x30; // disable analog function on PE4, PE5
+//E4 RX
+//E5 TX
+
+
+	
+}
+  
   unsigned char UART5_In_Char(void){
 	while((UART5_FR_R&0x10) != 0){}
 	return UART5_DR_R&0xFF;
