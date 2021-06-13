@@ -43,6 +43,64 @@ void PortF_Init(void)
 	return r;	
 	}
   
+  unsigned char UART5_In_Char(void){
+	while((UART5_FR_R&0x10) != 0){}
+	return UART5_DR_R&0xFF;
+}
+
+void UART5_In_String(char *str){
+	char c = UART5_In_Char();
+	while(c && c != ','){
+		*str = c;
+		str++;
+		c = UART5_In_Char();
+	}
+	*str = 0x00;
+}
+
+//$GPRMC,time,A,latitude,N,longitude,E,speed,angle,Date,Magnetic Variation,checksum data
+//$GPRMC,123519,A,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W*6A
+void gps_read(double * logitude,double * latitude){ 
+	char holder[50];
+	char c;
+	c = UART5_In_Char();
+	if(c == '$'){
+		c = UART5_In_Char();
+		if(c == 'G'){
+			c = UART5_In_Char();
+			if(c == 'P'){
+				c = UART5_In_Char();
+				if(c == 'R'){
+					c = UART5_In_Char();
+					if(c == 'M'){
+						c = UART5_In_Char();
+						if(c == 'C'){
+							c = UART5_In_Char();
+							if(c == ','){
+								c = UART5_In_Char();
+								if(c != ','){ //if there is good data
+									while(c != ','){c = UART5_In_Char();} //revise the following code carefully
+									c = UART5_In_Char();
+									if((c == 'A') || (c == 'V')){
+										c = UART5_In_Char();
+										if(c == ','){
+											UART5_In_String(holder); //Get latitude in holder
+											
+											*latitude = atof(holder);
+											
+											c = UART5_In_Char();//Read N
+											c = UART5_In_Char();//Read ,
+											
+											UART5_In_String(holder);
+											*logitude = atof(holder);
+											return;
+	}}}}}}}}}}
+	*latitude = 0;
+	*logitude = 0;
+	
+}
+	
+  
   void PortA_B_Init(void)
 {
 	SYSCTL_RCGCGPIO_R|=0x00000003;
